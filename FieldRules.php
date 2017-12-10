@@ -31,6 +31,17 @@ class FieldRules {
         $this->params['type'] = 'date';
         return $this;
     }
+    public function mail()
+    {
+        $this->params['type'] = 'mail';
+        return $this;
+    }
+    public function phone()
+    {
+        $this->params['type'] = 'phone';
+        return $this;
+    }
+
     public function requred()
     {
         $this->params['required'] = true;

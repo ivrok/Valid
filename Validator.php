@@ -8,6 +8,7 @@
 
 namespace Valid;
 
+use Valid;
 
 class Validator
 {
@@ -16,7 +17,7 @@ class Validator
     public function __construct(){}
     public function addFieldRules($name)
     {
-        $this->fieldRules[$name] = $obj = new \Valid\FieldRules();
+        $this->fieldRules[$name] = $obj = new FieldRules();
         return $obj;
     }
     public function validArray($notValidFields)
@@ -43,7 +44,12 @@ class Validator
                     $val = mb_ereg_replace('^[^\d\w\ \,\.]*$', '', $val);
                     break;
                 case 'date' :
-                    $val = mb_ereg_replace('^[^\d\-\.\ ]*$', '', $val);
+                    $val = mb_ereg_replace('^[^\d\-\.\ \/]*$', '', $val);
+                    break;
+                case 'mail' :
+                    if (!FieldChecker::mail($val) && $rules['required']) {
+                        $ERRORS[$key] = 'Не верный формат email.';
+                    }
             }
             if (!$val && isset($rules['required'])) {
                 $ERRORS[$key] = $rules['errMessage'] ? $rules['errMessage'] : 'Incorrect field!';
