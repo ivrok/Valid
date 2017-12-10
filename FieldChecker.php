@@ -11,10 +11,10 @@ namespace Valid;
 
 class FieldChecker
 {
-    function validateDateTime($dateStr, $format = 'd.m.Y')
+    public static function datetime($dateStr, $format = 'd.m.Y')
     {
         date_default_timezone_set('Europe/Moscow');
-        $date = DateTime::createFromFormat($format, $dateStr);
+        $date = \DateTime::createFromFormat($format, $dateStr);
         return $date && ($date->format($format) === $dateStr);
     }
 

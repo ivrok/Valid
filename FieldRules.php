@@ -16,9 +16,10 @@ class FieldRules {
         $this->params['type'] = 'int';
         return $this;
     }
-    public function string()
+    public function string($length = null)
     {
         $this->params['type'] = 'string';
+        $this->params['length'] = $length;
         return $this;
     }
     public function float()
@@ -41,10 +42,26 @@ class FieldRules {
         $this->params['type'] = 'phone';
         return $this;
     }
-
+    public function oneOfMany($values)
+    {
+        $this->params['type'] = 'oneOfMany';
+        $this->params['values'] = $values;
+        return $this;
+    }
+    public function shouldBe($value)
+    {
+        $this->params['type'] = 'shouldBe';
+        $this->params['value'] = $value;
+        return $this;
+    }
     public function requred()
     {
         $this->params['required'] = true;
+        return $this;
+    }
+    public function customCheck($func)
+    {
+        $this->params['custom_function'] = $func;
         return $this;
     }
     public function errMessage($msg)
